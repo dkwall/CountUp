@@ -6,6 +6,14 @@
     
 }
 
+.odd {
+    font-weight: 100;
+}
+
+.even {
+    font-weight: bold;
+}
+
 .logoFont {
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
