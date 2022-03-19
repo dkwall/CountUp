@@ -119,6 +119,7 @@
                                 } else {
                                     className = "odd";
                                 }
+                                //Template literals do not display correctly. Please view the source code for clarity.
                                 templateRows += `<tr><td class="${className}">${number}</td></tr>`;
                             }
                             document.getElementById("results").innerHTML = templateRows;                            
@@ -127,9 +128,40 @@
                     </pre>
                 </div>
                 <div class="col-lg-4">
-                    <p>The Code is structured in one function.</p>
-                    <h5>Hello World</h5>
-                    <p>Hello World is a function that displays an alert with a message of "Hello World"</p>
+                    <h3>Introduction</h3>
+                    <p>
+                        Although this application was simple enough to have likely written it in less code, I thought that it was important to keep solid programming principles in tact, such as the separation of concerns. To do this, the application was broken down into three main parts: the controller that controls the thread of execution, the logical function(s) that performs the actual "program", and the view that updates the Document Object Model (DOM) to display the results of the logic that was run. I have structured the code in this order as well to keep it easy to follow.
+                    </p><br>
+                    <p>
+                        One other part of the function does exist outside of the displayed javascript file on this page. This is a single line of code included in a "script" element in the html body of The App page. This line of code invokes The Controller function, getValues(), when the "Display the Numbers" button is clicked.
+                    </p><br>                    
+                    <h3>The Controller</h3>
+                    <p>
+                        The first part of the program is the controller, or the function that is invoked when the "Display the Numbers" button is clicked on The App page. The purpose of this function is to control the thread of execution by declaring the global variables and invoking function that will perform the logic and then the function that will update the DOM. This makes it easier to write and follow the code, and easier to refactor the code if and when necessary. 
+                    </p><br>
+                    <p>
+                        The declared function name is getValues. It declares the variables startValue and endValue in this block by retrieving the value attribute of the respective elements of the HTML document given the Id's referenced ("startValue" and "endValue").
+                    </p><br>                    
+                    <p>
+                        We then have to validate our input to ensure that the value passed is of the type integer. We use the built-in function parseInt and pass in each variable declared above to do this. I found that this was an important step because the retrieved "value" is actually a string. For example, if the user inputs the starting value of 0, the startValue becomes a string "0" not an integer 0. 
+                    </p><br>                    
+                    <p>
+                        Following the validation, we ensure that we have the user pass in an integer (or at least a value that can be parsed into an integer) by using a for-loop. If the values are both integers after parsing, we can invoke our logic function. Otherwise, we will display a request to the user "You must enter integers." We will step through the invoked functions in the sections to follow this, but for now we need to know that the logic function returns to us an array of numbers that go from startValue to endValue, inclusively.
+                    </p><br>                    
+                    <p>
+                        Finally, our Controller Function invokes the View Function to write HTML within the element with the Id of "results" using another for loop. Like our Logic Function, we will step through this function later. What is important to the Controller function is that the View function returns valid HTML with either a class of "even" or "odd" depending on the value of the if-else statement. Our site.css file will then control whether the value on the user's screen is bold or normal font weight.
+                    </p><br>
+                    <h3>The Logic</h3>
+                    <p>
+                        The Logic function, generateNumbers, is only called when The Controller function calls it. It takes in two parameters that we called startValue and endValue for consistency, but it is important to note that they could have been defined locally by any variable name, as long as the variable names within the scope of generateNumbers retains consistent usage. Once inside our local execution context of generateNumbers, we declared a variable "numbers" with the value of an empty array. This will be used to store all of the numbers between the start and end values given by the user (inclusive to each start and end value), and the final array will be the value that is returned so The Controller can pass the array to The View function later.
+                    </p><br>                    
+                    <h3>The View</h3>
+                    <p>
+                        The View function, labelled displayNumbers, is similar to The Logic function in that it is only invoked when called on by The Controller. It takes in one parameter that is labelled "numbers" (this name is also only local to the execution context of The View function, but is kept consistent with the surrounding functions for ease of use). Within the function, we declare a local variable templateRows and assign it a value of an empty string. This will be the string that will be returned and pushed into the HTML once the execution is complete. 
+                    </p><br>                    
+                    <p>
+                        We build this string up by iterating over the numbers value (an array). We iterate over the numbers array for each value, and assign it a className even or odd, determined on if the number is divisible by 2. We iteratively build the templateRows string for each of the number values, then update the document object with the templateRows string at the element in the HTML with the "results" Id. 
+                    </p><br>                    
                 </div>
             </div>
         </div>
